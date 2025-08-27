@@ -1,0 +1,44 @@
+{
+  "name": "Python Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+ 
+  // Features let you add extra tools easily
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "installVnc": true,
+      "noVnc": true,
+      "webPort": 6080
+    }
+  },
+ 
+  // Run after container is created
+  "postCreateCommand": "pip install -r requirements.txt",
+ 
+  // Forward common ports (adjust for your app)
+  "forwardPorts": [8000, 5000],
+ 
+  // Configure VS Code settings inside the container
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-python.black-formatter"
+      ]
+    }
+  },
+ 
+  // Optional: mounts local files into the container
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
+}
